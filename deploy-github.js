@@ -1,3 +1,3 @@
 var ghpages = require('gh-pages');
 
-ghpages.publish('dist',)
+ghpages.publish('dist')

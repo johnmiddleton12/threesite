@@ -14,6 +14,7 @@ import EarthNormal from '../assets/earthNormal.jpg';
 
 import Landscape from '../assets/landscape.jpg';
 import Pyramid from '../assets/pyramid.jpg';
+import Space from '../assets/space.jpg';
 
 import AnamorphicText from '../assets/anamorphicText2.obj';
 import AnamorphicTextMtl from '../assets/anamorphicText2.mtl';
@@ -58,7 +59,7 @@ pointLight.position.set(5, 5, 5);
 
 const ambientLight = new THREE.AmbientLight(0xFFFFFF);
 
-// scene.add(pointLight, ambientLight);
+// scene.add(pointLight);
 scene.add(ambientLight);
 
 const lightHelper = new THREE.PointLightHelper(pointLight);
@@ -89,7 +90,7 @@ function addStar() {
 
 Array(200).fill().forEach(addStar);
 
-const winterTexture = new THREE.TextureLoader().load(Landscape);
+const winterTexture = new THREE.TextureLoader().load(Space);
 scene.background = winterTexture;
 
 const pyramidTexture = new THREE.TextureLoader().load(Pyramid);
