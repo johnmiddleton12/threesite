@@ -30,6 +30,8 @@ import AnamorphicTextMtl from "../assets/anamorphicText2.mtl";
 // TODO: QR Code on side of box
 // TODO: Prettify
 
+// TODO: Fix galaxy stuff
+
 const scene = new THREE.Scene();
 
 // const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -84,19 +86,19 @@ const gridHelper = new THREE.GridHelper(200, 50);
 // scene.add(lightHelper, gridHelper);
 
 function addStar() {
-    const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+    const geometry = new THREE.SphereGeometry(4, 24, 24);
     const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
     const star = new THREE.Mesh(geometry, material);
 
     const [x, y, z] = Array(3)
         .fill()
-        .map(() => THREE.MathUtils.randFloatSpread(100));
+        .map(() => THREE.MathUtils.randFloatSpread(2000));
 
     star.position.set(x, y, z);
     scene.add(star);
 }
 
-Array(200).fill().forEach(addStar);
+Array(500).fill().forEach(addStar);
 
 const winterTexture = new THREE.TextureLoader().load(Space);
 scene.background = winterTexture;
@@ -180,14 +182,19 @@ controls.maxPolarAngle = controls.minPolarAngle;
 controls.minAzimuthAngle = 0;
 controls.maxAzimuthAngle = Math.PI / 2;
 controls.enablePan = false;
-controls.maxZoom = 100;
-// controls.minZoom = 60;
+controls.maxZoom = 4.5;
+controls.minZoom = 3;
 controls.reset();
 
 function animate() {
     requestAnimationFrame(animate);
 
     // console.log(camera.rotation);
+
+    if (camera.zoom < 0.000000001)
+    {
+      console.log("Wow!");
+    }
 
     torus.rotation.x += 0.01;
     torus.rotation.y += 0.005;
@@ -297,6 +304,7 @@ function onLoad(object) {
     obj.rotation.x = 0;
     obj.rotation.y -= 40.1;
     obj.rotation.z = 0;
+
 
     animate();
 }
