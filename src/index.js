@@ -44,7 +44,8 @@ const camera = new THREE.OrthographicCamera(
     1000
 );
 
-camera.zoom = 4;
+// camera.zoom = 4;
+camera.zoom = 0;
 // camera.position.setY(-199);
 // camera.position.x = 3.583;
 // camera.position.y = 100;
@@ -183,17 +184,28 @@ controls.minAzimuthAngle = 0;
 controls.maxAzimuthAngle = Math.PI / 2;
 controls.enablePan = false;
 controls.maxZoom = 4.5;
-controls.minZoom = 3;
+// controls.minZoom = 3;
+// controls.minZoom = 0;
 controls.reset();
+
+let zoomed = 0;
 
 function animate() {
     requestAnimationFrame(animate);
 
     // console.log(camera.rotation);
 
-    if (camera.zoom < 0.000000001)
+    if (camera.zoom < 4 && zoomed == 0)
     {
-      console.log("Wow!");
+        if (camera.zoom + Math.pow(4 - camera.zoom, -4) < 4)
+        {
+            camera.zoom += Math.pow(4 - camera.zoom, -4);
+        }
+        else{
+            camera.zoom = 4;
+            zoomed = 1;
+        }
+        camera.updateProjectionMatrix();
     }
 
     torus.rotation.x += 0.01;
@@ -304,7 +316,6 @@ function onLoad(object) {
     obj.rotation.x = 0;
     obj.rotation.y -= 40.1;
     obj.rotation.z = 0;
-
 
     animate();
 }
